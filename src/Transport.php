@@ -37,14 +37,13 @@ final class CurlTransport implements TransportInterface
             CURLOPT_CONNECTTIMEOUT => min(10, $timeoutSeconds),
             CURLOPT_FOLLOWLOCATION => false,
         ]);
+        // No curl_close(): handles are objects freed by PHP since 8.0, and the call is deprecated in 8.5.
         $body = curl_exec($handle);
         if ($body === false) {
             $error = curl_error($handle);
-            curl_close($handle);
             throw new TransportException(0, 'Yatmo: ' . ($error !== '' ? $error : 'network error'));
         }
         $status = (int) curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
-        curl_close($handle);
 
         return ['status' => $status, 'body' => (string) $body];
     }

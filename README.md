@@ -62,6 +62,7 @@ $yatmo = new Client(
 | `summary($lat, $lng)` | `/summary` | `Summary`: places by category with distances and travel times (walking, bicycling, driving, transit), closest cities, resolved address |
 | `summaryText($lat, $lng, $language = null)` | `/Summary/text` | `SummaryText`: the neighbourhood paragraphs in one language (EN fallback), with `[STRONG]` markers around key places |
 | `summaryTextRaw($lat, $lng)` | `/Summary/text` | The same in every language of the country, as an array, to cache |
+| `summaryRaw($lat, $lng)`, `scoresRaw($lat, $lng)` | `/summary`, `/scores` | The API answers as plain arrays, to cache; `Summary::fromWire()` and `Scores::fromWire()` rebuild the models |
 | `scores($lat, $lng)` | `/scores` | `Scores`: one 0 to 10 score per category |
 | `enrichment($lat, $lng)` | `/enrichment` | The nearest place of each category with distances and times, as an array, for listing data |
 | `points($south, $west, $north, $east, $poiTypeIds = [])` | `/points` | `Poi[]` in a bounding box |

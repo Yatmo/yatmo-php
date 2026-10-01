@@ -56,6 +56,10 @@ final class ClientTest extends TestCase
         self::assertSame("4'", $nursery->travel(TravelMode::Walking)?->travelTimeShortLabel);
         self::assertNull($nursery->travel(TravelMode::Driving));
         self::assertSame(['Supermarkets'], array_map(fn ($s) => $s->label, iterator_to_array($summary->subCategories(SummaryCategory::SHOPPING), false)));
+        // The raw answer is a plain array (cache friendly) and rebuilds the same model.
+        $raw = $client->summaryRaw(50.8461, 4.3664);
+        self::assertSame(self::SUMMARY, $raw);
+        self::assertEquals($summary, \Yatmo\Model\Summary::fromWire($raw));
     }
 
     public function testCustomBaseUrl(): void

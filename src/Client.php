@@ -28,7 +28,7 @@ use Yatmo\Transport\TransportInterface;
  */
 final class Client
 {
-    public const VERSION = '1.0.0';
+    public const VERSION = '1.1.0';
 
     private readonly string $baseUrl;
     private readonly TransportInterface $transport;
@@ -66,7 +66,17 @@ final class Client
     /** GET /summary: nearby places by category with travel times, closest cities, resolved address. */
     public function summary(float $latitude, float $longitude): Summary
     {
-        return Summary::fromWire($this->getJson('summary', $this->position($latitude, $longitude)));
+        return Summary::fromWire($this->summaryRaw($latitude, $longitude));
+    }
+
+    /**
+     * GET /summary as sent by the API (short keys), a plain array that any cache stores; rebuild with `Summary::fromWire()`.
+     *
+     * @return array<string, mixed>
+     */
+    public function summaryRaw(float $latitude, float $longitude): array
+    {
+        return $this->getJson('summary', $this->position($latitude, $longitude));
     }
 
     /** GET /Summary/text as sent by the API: every language of the country. Cache it, a location rarely changes. */
@@ -84,7 +94,17 @@ final class Client
     /** GET /scores: one 0 to 10 score per category. */
     public function scores(float $latitude, float $longitude): Scores
     {
-        return Scores::fromWire($this->getJson('scores', $this->position($latitude, $longitude)));
+        return Scores::fromWire($this->scoresRaw($latitude, $longitude));
+    }
+
+    /**
+     * GET /scores as sent by the API, a plain array that any cache stores; rebuild with `Scores::fromWire()`.
+     *
+     * @return array<string, mixed>
+     */
+    public function scoresRaw(float $latitude, float $longitude): array
+    {
+        return $this->getJson('scores', $this->position($latitude, $longitude));
     }
 
     /**

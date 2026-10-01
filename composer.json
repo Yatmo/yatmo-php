@@ -4,7 +4,7 @@
     "type": "library",
     "license": "MIT",
     "keywords": ["yatmo", "real-estate", "proptech", "map", "poi", "points-of-interest", "neighbourhood", "property", "listing", "isochrone", "geocoding", "seo", "laravel", "symfony"],
-    "homepage": "https://documentation.yatmo.com/api",
+    "homepage": "https://yatmo.com",
     "support": {
         "docs": "https://documentation.yatmo.com/api",
         "issues": "https://github.com/Yatmo/yatmo-php/issues",
